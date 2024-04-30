@@ -59,8 +59,8 @@ Javascript のウィジェットは、既存のHTMLフォームに適用され�
 通常は `head` タグ内に記述を追加します。
 
 ```html
-<script src='https://yzipcode.yo-ki.com/js/yokinsoft.zipcode.js'></script>
-<link rel="stylesheet" type="text/css" href="https://yzipcode.yo-ki.com/css/yokinsoft.zipcode.css" />
+<script src='https://yzipcode.yo-ki.com/js/yokinsoft.zipcode.min.js'></script>
+<link rel="stylesheet" type="text/css" href="https://yzipcode.yo-ki.com/css/yokinsoft.zipcode.min.css" />
 ```
 
 ### 2. 導入したいウェブフォームを選定します。
@@ -205,21 +205,24 @@ HTML上の要素
 
 #### HTMLフォーム構成要素の指定
 
-- **zipcode** : string | `Array<string>`
-- **address** : string | `Array<string>`
-- **business** : string | `Array<string>`
+- `zipcode` : string | `Array<string>` 郵便番号用入力フォームまたはボタン
+- `address` : string | `Array<string>` 住所用入力フォームまたはボタン
+- `business` : string | `Array<string>` 事業所用入力フォーム
+- `rome` : string | `Array<string>` ローマ字用入力フォームまたはボタン
+
+`INPUT`フォームなどの指定は `id` または querySelector 形式 (`#zipcode` などのcssなどのセレクタと同様)の形式。
 
 #### 動作に関するオプション
 
-- **autofill** : true | false
+- `autofill` : **true** | false
  郵便番号または住所文字列の入力時、住所が一意に決定する場合にフォームに自動的に文字列を挿入します。
-- **autosuggest** : true | false 郵便番号または住所文字列の入力の際、複数の候補がある場合ドロップダウンリストでその候補を表示します。
-
-いずれのオプションも `false` が指定された場合は、ボタンによる検索操作のみの動作になります。
-
-#### その他のオプション
-
-- **language** : 'ja' | 'en'  言語指定。デフォルトではブラウザの言語に依存します。
+- `autosuggest` : **true** | false 郵便番号または住所文字列の入力の際、複数の候補がある場合ドロップダウンリストでその候補を表示します。
+- `autofocus` : **true** | false 入力の確定時にフォーカスを自動的に設定
+- `zipcodeDelimiter` : '-' 郵便番号の桁区切り文字
+- `romeDelimiter` : ',' ローマ字の区切り文字
+- `romeReverse` : **false** | true ローマ字を逆順にするかどうか
+- `romeCapitalize` : **false** | true  ローマ字を大文字＋小文字の表記に変更
+- `language` : **'auto'** | 'ja' | 'en'  言語指定。デフォルトではブラウザの言語に依存します。
 
 #### 例
 
@@ -236,5 +239,4 @@ HTML上の要素
 </script>
 ```
 
-さらに詳細な設定内容はSDKのドキュメントを参照してください。
 
