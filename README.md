@@ -162,7 +162,7 @@ Javascript のウィジェットは、既存のHTMLフォームに適用され�
 
 #### アクセスキーと 許可Origin の管理
 
-本システムではアクセスキーとOrigin制限を元にアクセス数を集計しています。これらは、HTMLページ内に公開された情報となり、クライアントWebブラウザからのアクセスを厳密に制限するセキュリティ技術ではありません。アクセス統計をより正確にするためには時々アクセスキーの変更を行ってください。
+本システムではアクセスキーとOrigin制限を元にアクセス数を集計しています。これらは、HTMLページ内に公開された情報となり、クライアントWebブラウザからのアクセスを厳密に制限する**セキュリティ技術ではありません**。アクセス記録をより正確にするために時々アクセスキーの変更を行ってください。
 
 ### 無保証
 
@@ -239,4 +239,91 @@ HTML上の要素
 </script>
 ```
 
+
+### API 仕様
+
+※本サービスは利用規約上有料ユーザーにのみAPIアクセスをご利用いただけます。
+
+```javascript
+var apiEndpoing = "https://yzipcode.yo-ki.com/api/lookup"
+```
+
+`httpMethod = GET | POST`
+
+#### パラメーター
+
+**keyword** : 検索キーワード
+
+郵便番号、住所文字列、事業所名の全体または一部
+
+例)
+```
+Host: https://yzipcode.yo-ki.com
+GET /api/lookup?keyword=東京都渋谷区
+Authorize: Bearer (アクセスキーのBase64エンコード)
+```
+
+#### 応答メッセージ
+
+`Content-Type: application/json`
+
+```json
+{
+  "date": "2024-05-08T04:38:02.1656663+00:00",
+   "keyword": "123",
+  "date-created": "2024-05-01T01:00:01.2180569+00:00",
+  "date-of-utf_ken_all": "2024-04-30T07:42:22.0000000+00:00",
+  "date-of-jigyosyo": "2024-04-30T07:59:01.0000000+00:00",
+  "date-of-ken_all_rome": "2023-07-07T05:54:14.0000000+00:00",
+  "result": [
+    {
+      "address": "東京都 足立区 梅田",
+      "post-code": "1230851",
+      "post-code5": "123",
+      "jis-code": "13121",
+      "address-kana": "トウキョウト アダチク ウメダ",
+      "address-rome": "TOKYO TO,ADACHI KU,UMEDA",
+      "end": true
+    },
+    {
+      "business-name": "梅田公共職業安定所",
+      "business-name-kana": "ウメダコウキヨウシヨクギヨウアンテイシヨ",
+      "address": "大阪府 大阪市北区 梅田 １丁目２－２大阪駅前第２ビル１６階",
+      "post-code": "5308567",
+      "post-code5": "530",
+      "jis-code": "27127",
+      "address-kana": "",
+      "end": true
+    }
+  ]
+}
+```
+
+**date** : 応答メッセージの作成時刻
+
+**keyword** 検索対象のキーワード
+
+**date-created** 郵便番号データベースの作成・更新時刻
+
+**date-of-xxxxxxx** データベース作成に使用した日本郵便配布の元データの日付
+
+**result** 検索結果の配列
+
+**address** 住所文字列。半角スペースで区切り。
+
+**post-code** 郵便番号
+
+**post-code5** 郵便番号５桁
+
+**jis-code** JISコード
+
+**address-kana** 住所のかな表記。半角スペースで区切り。
+
+**address-rome** ろマージ表記。半角カンマで区切り。
+
+**business-name** 事業所名
+
+**business-name-kana** 事業所名かな
+
+**end** true | false 住所の階層の末端まで達した場合に `true` これ以下の詳細住所がない場合。
 
